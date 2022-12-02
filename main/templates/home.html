@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block body_start %}
+<body>
+    {% if messages %}
+        <ul class="messages" style="margin-left:250px;color:white">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+<div class="wrapper">
+{% endblock %}
+
+{% block body_end %}
+
+    <div class="two">
+  	
+  	    <div class="headlines">
+  		    <h2 style="margin-bottom: -20px;color: white;">Headlines</h2>
+  		
+                {% for news in top_three_news%}
+                    <div class="article">
+
+                        <a href="/{{news.id}}"> <img src="imgs/{{news.article_image}}">
+                            <h3>{{news.title}}</h3>
+                            <p>
+                                {{news.details|slice:":120" }}...<br><span style="float:right;margin-top:5px" class = 'readMore'>Read More </span>
+                            </p>
+                        </a>
+                        
+
+                    </div>
+                {% endfor %}    
+  	    </div>
+    </div>
+
+    <div class="three" id="three">
+        <h2 id= 'heading-categories' style="color: white;">Categories</h2>
+        <div id="categories">
+            <table>
+                <tr>
+                    <td><a class='categories' href="/International"><i class='fas fa-globe-americas' style='font-size:55px;margin-bottom: 15px;'></i><br>  International </a></td>
+                    <td><a class='categories' href="/Sports"><i class='fas fa-swimmer' style='font-size:55px;margin-bottom: 15px;'></i><br>  Sports </a></td>
+                    <td><a class='categories' href="/Weather"><i class='fas fa-cloud-sun' style='font-size:55px;margin-bottom: 15px;'></i><br>  Weather </a></td>
+                </tr>
+
+                <tr>
+                    <td><a class='categories' href="/Entertainment"><i class='fas fa-video' style='font-size:55px;margin-bottom: 15px;'></i><br>  Entertainment </a></td>
+                    <td><a class='categories' href="/Finance"><i class='fas fa-landmark' style='font-size:55px;margin-bottom: 15px;'></i><br>  Finance </a></td>
+                    <td><a class='categories' href="/Technology"><i class='fas fa-microchip' style='font-size:55px;margin-bottom: 15px;'></i><br>  Technology </a></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+{% endblock %}

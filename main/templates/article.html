@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block body_start %}
+<body>
+    {% if messages %}
+        <ul class="messages" style="margin-left:250px;color:white">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+<div class="wrapper">
+{% endblock %}
+
+{% block body_end %}
+
+<div class="outer-container" style='height:max-content;margin-bottom:-5px'>
+	<h1 style="color: white;margin-left: 100px;">{{news.title}}</h1>
+	<img src="/imgs/{{news.article_image}}" alt="{{news.title}}">
+	
+	{% block javascript %}
+    
+    {% endblock javascript %}
+	{% if liked_articles is None%}
+	<p onclick="update_likes({{news}})" class='likes'> <i class='fas fa-thumbs-up' style="color:white;font-size:18px"></i>: {{news.likes}} </p> <br>
+	{% elif news.title in liked_articles %}	
+		<p onclick="update_likes({{news}})" class='likes'> <i class='fas fa-thumbs-up' style="color:black;font-size:18px"></i>: {{news.likes}} </p> <br>
+	{% else %}
+	<p onclick="update_likes({{news}})" class='likes'> <i class='fas fa-thumbs-up' style="color:white;font-size:18px"></i>: {{news.likes}} </p> <br>
+	{% endif %}
+	<p class='article-content'>{{news.details}}</p>
+</div>
+
+</div>
+</body>
+</html>
+{% endblock%}

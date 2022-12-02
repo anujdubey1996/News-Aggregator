@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}         
+
+{% block body_start %}
+<body>
+
+<div class="wrapper">
+{% endblock %}
+
+{% block body_end %}
+
+<!--Login--> 
+<div class="outer-container" style="height: 95vh;">
+    <h1 style="color: white;margin-left: 100px;">Login</h1>
+    {% if messages %}
+        <ul class="messages" style="margin-left:100px;color:white">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+	<div class="inner-container" style="height: 25%;margin-top:100px">
+        <div class="container py-5">
+            <form method="POST" style="color:white;margin:1px;font-family:'Gill Sans';padding:2px">
+                {% csrf_token %}
+                {{ login_form|crispy }}
+                <button class="btn btn-primary" type="submit"  style="border-radius:5px;background-color:#3d3a3a;color:white;">Login</button>
+            </form>
+        </div>
+        <p class="text-center" style="color:white">Don't have an account? <a href="/register" style="color:white"> <strong>Create an account</strong></a>.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block body_start %}
+<body>
+    {% if messages %}
+        <ul class="messages" style="margin-left:250px;color:white">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+<div class="wrapper">
+{% endblock %}
+
+{% block body_end %}
+
+    <div class="two">
+  	
+  	    <div class="headlines">
+  		    <h2 style="margin-bottom: -20px;color: white;"> Top Trending!</h2>
+  		
+                {% for news in top_three_news%}
+                    <div class="article">
+
+                        <a href="/{{news.id}}"> <img src="imgs/{{news.article_image}}">
+                            <h3>{{news.title}}</h3>
+                            <p>
+                                {{news.details|slice:":120" }}...<br><span style="float:right;margin-top:5px" class = 'readMore'>Read More </span>
+                            </p>
+                        </a>
+                        
+
+                    </div>
+                {% endfor %}    
+  	    </div>
+    </div>
+
+
+</div>
+</body>
+</html>
+{% endblock %}

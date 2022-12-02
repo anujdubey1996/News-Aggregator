@@ -1,0 +1,29 @@
+<div class="one">
+    <div class="sidebar">
+        <div id="mySidebar" class="sidebar">
+            <a href="home">Home</a>
+            <a href="for-you">For You!</a>
+            <a href="top-trending">Top Trending</a>
+            <a href="bookmarks">Bookmarks</a>
+            <div class='foot'>
+                <div class='bottom_button'>
+                    <a href="#"> <i class='fas fa-cog'></i> </a>
+                </div>
+
+                <div class='bottom_button'>
+                    <a href="support.html"> <i class='fas fa-headphones'></i></a>
+                </div>
+
+                <div class='bottom_button'>
+                    {% if user.is_authenticated %}
+                    <a href="logout"> <i class='fas fa-sign-out-alt'></i></a> 
+                    {% else %}
+                    <a href="login"> <i class='fas fa-key'></i></a> 
+                    {% endif %}
+                </div>    
+            </div>
+        </div>
+
+    </div>
+</div>
+
