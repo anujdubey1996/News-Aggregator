@@ -9,6 +9,7 @@ from django.shortcuts import render
 from .models import Like
 from django.contrib.auth.models import User
 import random
+import requests
 
 
 #Like.objects.create(user= User.objects.get(username='anuj04').username, article_id='Technology Breaking!')
@@ -72,8 +73,11 @@ def logout_request(request):
 
 
 def category_request(request,cat):
-    category_news = Category.objects.get(title=cat)  
-    category_news = News.objects.filter(category=category_news)[0:3] 
+    try:
+        category_news = Category.objects.get(title=cat)  
+        category_news = News.objects.filter(category=category_news)[0:3] 
+    except:
+        category_news = []
     return render(request, 'category.html', {'category_news':category_news})
 
 def detail(request,id):
@@ -92,3 +96,13 @@ def detail(request,id):
         'category':category,
         'liked_articles':user_articles})
    
+def headlines(request):
+    API_KEY = "14a8cdb3b4274fecabb4e1e67716248e"
+    url = 'https://newsapi.org/v2/top-headlines?country=in&apiKey={key}'.format(key = API_KEY)
+    response = requests.get(url)
+    data = response.json()
+    print(data)
+    context = {
+        'data1':data['articles']
+        }
+    return render(request, 'get_top_headlines.html', context)
