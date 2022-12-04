@@ -17,17 +17,17 @@ import requests
 def home(request):
     top_three_news = News.objects.all()
     rows = len(top_three_news)
-    top_three_news = top_three_news[rows-3:]     
+    top_three_news = top_three_news[(rows-10):(rows-7)]     
     return render(request, 'home.html', {'top_three_news':top_three_news})
 
 
 def for_you(request):
-    top_three_news = News.objects.all()[0:1] 
+    top_three_news = News.objects.all()[10:16] 
     return render(request, 'for_you.html', {'top_three_news':top_three_news})
 
 def top_trending(request):
     top_three_news = News.objects.order_by('?')
-    top_three_news = top_three_news.all()[0:3] 
+    top_three_news = top_three_news.all()[0:6] 
     top_three_news = top_three_news
     return render(request, 'top_trending.html', {'top_three_news':top_three_news})
 
@@ -108,7 +108,8 @@ def headlines(request):
         newsData = News()
         newsData.title = news['title'] 
         newsData.article_image = news['urlToImage']
-        newsData.details = news['content']
+        newsData.details = news['description']
+        newsData.url = news['url']
         newsData.likes = 0
         newsData.category = Category.objects.get(title = 'Headlines')
         newsData.save()

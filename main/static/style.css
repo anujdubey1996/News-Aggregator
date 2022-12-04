@@ -77,6 +77,8 @@ body{
 	margin-top: 40px;
 	background-color: #3d3a3a;
 	border-radius: 10px;
+	min-height: 250px;
+	
 }
 
 .article:hover{

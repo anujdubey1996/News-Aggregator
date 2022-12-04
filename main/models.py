@@ -19,6 +19,7 @@ class News(models.Model):
     article_image=models.ImageField(upload_to='imgs/')
     details=models.TextField(max_length=5000)
     likes=models.BigIntegerField(default=0)
+    url=models.CharField(max_length=500)
 
     class Meta:
         verbose_name_plural = "News"
