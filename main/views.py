@@ -15,8 +15,9 @@ import requests
 #Like.objects.create(user= User.objects.get(username='anuj04').username, article_id='Technology Breaking!')
 # Create your views here.
 def home(request):
-    top_three_news = News.objects.all()[0:3]
-     
+    top_three_news = News.objects.all()
+    rows = len(top_three_news)
+    top_three_news = top_three_news[rows-3:]     
     return render(request, 'home.html', {'top_three_news':top_three_news})
 
 
@@ -98,11 +99,23 @@ def detail(request,id):
    
 def headlines(request):
     API_KEY = "14a8cdb3b4274fecabb4e1e67716248e"
-    url = 'https://newsapi.org/v2/top-headlines?country=in&apiKey={key}'.format(key = API_KEY)
+    url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey={key}'.format(key = API_KEY)
     response = requests.get(url)
     data = response.json()
     print(data)
+    count = 0
+    for news in data['articles']:
+        newsData = News()
+        newsData.title = news['title'] 
+        newsData.article_image = news['urlToImage']
+        newsData.details = news['content']
+        newsData.likes = 0
+        newsData.category = Category.objects.get(title = 'Headlines')
+        newsData.save()
+        count += 1
+    
+    top_three_news = News.objects.all()[0:3]
     context = {
-        'data1':data['articles']
-        }
-    return render(request, 'get_top_headlines.html', context)
+        'top_three_news':top_three_news
+    }
+    return render(request, 'home.html', context)
