@@ -76,7 +76,7 @@ def logout_request(request):
 def category_request(request,cat):
     try:
         category_news = Category.objects.get(title=cat)  
-        category_news = News.objects.filter(category=category_news)[0:3] 
+        category_news = News.objects.filter(category=category_news)[0:6] 
     except:
         category_news = []
     return render(request, 'category.html', {'category_news':category_news})
@@ -112,6 +112,8 @@ def headlines(request):
         newsData.url = news['url']
         newsData.likes = 0
         newsData.category = Category.objects.get(title = 'Headlines')
+        if newsData.details is None:
+            continue
         newsData.save()
         count += 1
     
@@ -120,3 +122,30 @@ def headlines(request):
         'top_three_news':top_three_news
     }
     return render(request, 'home.html', context)
+
+def category_headlines(request):
+    API_KEY = "14a8cdb3b4274fecabb4e1e67716248e"
+    url = 'https://newsapi.org/v2/top-headlines?country=us&category={cat}&apiKey={key}'.format(cat='general', key = API_KEY)
+    response = requests.get(url)
+    data = response.json()
+    count = 0
+    for news in data['articles']:
+        newsData = News()
+        newsData.title = news['title'] 
+        newsData.article_image = news['urlToImage']
+        newsData.details = news['description']
+        newsData.url = news['url']
+        newsData.likes = 0
+        newsData.category = Category.objects.get(title = 'International')
+        print("READ HERE !!!!!!!",newsData.title, newsData.details)
+        if newsData.details is None:
+            continue
+        newsData.save()
+        count += 1
+    
+    top_three_news = News.objects.all()[0:3]
+    context = {
+        'top_three_news':top_three_news
+    }
+
+    return render(request, 'get_top_headlines.html', context)

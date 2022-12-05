@@ -70,7 +70,7 @@ body{
 
 .article {
 	display: inline-block;
-	width: 25%;
+	width: 20%;
 	padding: 20px;
 	margin: 15px;
 	margin-left: 50px;
@@ -127,7 +127,7 @@ table, td {
 	margin-left: -20px;
 	border-spacing: 100px 2em;
 	width: 20px;
-	margin-top: 60px;
+	margin-top: -15px;
 }
 
 td{
@@ -139,6 +139,7 @@ td{
 	border: black solid 0px;
 	border-radius: 10px;
 	color: white;
+	margin-right: 50px;
 }
 
 td:hover{
@@ -241,12 +242,18 @@ td:hover{
 	border: none;
 }
 
- .article{
- 	width: 20%;
- }
 
 
 #heading-categories{
-	margin-top: 100px;
+	margin-top: 150px;
 }
 
+#categories{
+	margin-left: 0%;
+}
+
+h5 {
+ height: max-content;
+ text-align: center;
+ padding-top: 10px;
+}
