@@ -22,17 +22,17 @@
   		    <h2 style="margin-bottom: -20px;color: white;">For You!</h2>
   		
                 {% for news in top_three_news%}
-                    <div class="article">
+                <div class="article">
 
-                        <a href="/{{news.id}}"> <img src="imgs/{{news.article_image}}">
-                            <h3>{{news.title}}</h3>
-                            <p>
-                                {{news.details|slice:":120" }}...<br><span style="float:right;margin-top:5px" class = 'readMore'>Read More </span>
-                            </p>
-                        </a>
-                        
+                    <a href="{{news.url}}" target="_blank"> <img src="{{news.article_image}}" style="width:300px;height:150px;">
+                        <h5>{{news.title|slice:":100"}}</h5>
+                        <h6>
+                            <span style="float:right;margin-top:5px" class = 'readMore'>Read More </span>
+                        </h6>
+                    </a>
+                    
 
-                    </div>
+                </div>
                 {% endfor %}    
   	    </div>
     </div>
